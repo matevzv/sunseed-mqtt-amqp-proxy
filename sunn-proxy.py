@@ -18,7 +18,7 @@ def on_connect(client, userdata, rc):
     client.subscribe("spm/+")
 
 def on_message(client, userdata, msg):
-    if '"report_n":0' in msg.payload:
+    if '"report_n":49' in msg.payload:
         channel.basic_publish(exchange=EXCHANGE,
                           routing_key=ROUTING_KEY,
                           body=str(msg.payload))
