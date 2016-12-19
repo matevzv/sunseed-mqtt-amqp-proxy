@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import sys
 import time
 import pika
 import paho.mqtt.client as mqtt
@@ -35,4 +36,4 @@ try:
 except:
     print "Fail!"
     time.sleep(10)
-    exit(1)
+    sys.exit(1)
