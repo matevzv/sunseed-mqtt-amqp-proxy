@@ -9,7 +9,9 @@ var publish = function (mqtt) {
     conn.createChannel(function(err, ch) {
       ch.assertExchange(exchange, 'topic', {durable: true});
       mqtt.on('message', function(topic, data) {
-        ch.publish(exchange, routing_key, new Buffer(data));
+        if (data.indexOf('\"report_n\":49') > -1) {
+          ch.publish(exchange, routing_key, new Buffer(data));
+        }
       });
     });
   });
