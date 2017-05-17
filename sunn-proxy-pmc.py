@@ -19,10 +19,14 @@ def on_connect(client, userdata, rc):
     client.subscribe("pmc/+")
 
 def on_message(client, userdata, msg):
-    if '"ts":' in msg.payload:
-        channel.basic_publish(exchange=EXCHANGE,
-                          routing_key=ROUTING_KEY,
-                          body=str(msg.payload))
+    if '"ts":' not in msg.payload:
+        msg_ts = msg.payload.split(',', 1)
+        msg_ts[0] += ',"ts":'+str(int(round(time.time() * 1000)))
+        msg.payload = ",".join(msg_ts)
+
+    channel.basic_publish(exchange=EXCHANGE,
+                      routing_key=ROUTING_KEY,
+                      body=str(msg.payload))
 
 client = mqtt.Client()
 client.on_connect = on_connect
