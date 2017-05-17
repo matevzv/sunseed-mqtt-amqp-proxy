@@ -25,8 +25,8 @@ def on_message(client, userdata, msg):
         msg.payload = ",".join(msg_ts)
 
     channel.basic_publish(exchange=EXCHANGE,
-                      routing_key=ROUTING_KEY,
-                      body=str(msg.payload))
+                        routing_key=ROUTING_KEY,
+                        body=str(msg.payload))
 
 client = mqtt.Client()
 client.on_connect = on_connect
